@@ -41,56 +41,37 @@ const scrapContent = async(urls) => {
     for (let i = 0; i < urls.length; i++) {
         club = {}
         await page.goto(urls[i])
-        // const clubInfoList = await page.evaluate(() => document.querySelectorAll("#bloc_31037_content div.flex div.flex_1"))
         try {
             club.name = await page.evaluate(() => document.querySelector(".font_bold.font_size_big.margin_bottom_big.text_center").innerText.trim())
-            // club.contact = await page.evaluate(() => document.querySelectorAll("#bloc_31037_content div.flex div.flex_1")[2].innerText.trim())
-
-            let info = await page.evaluate(() => document.querySelectorAll("#bloc_31037_content div.flex"))
-            let list = await page.$$('#bloc_31037_content div.flex');
-            
-            let infos = await page.evaluate(() => Array.from(document.querySelectorAll("#bloc_31037_content div.flex")))
-
-            // await this.page.evaluate(() => {
-            //     let elements = Array.from(document.querySelectorAll("#bloc_31037_content div.flex"));
-            //     let links = elements.map(element => {
-            //         return element.children[0]
-            //     })
-            //     return links;
-            // });
-
-            // console.log(list);
-            // console.log(list.children);
-            // console.log(links);
-            console.log(info);
-            console.log(infos);
-            // console.log(info[0].value);
-            // console.log(Array.from(info).length);
-            // for (let i = 0; i < info.length; i++) {
-            //     console.log(info[i]);
-            // }
-            // info.forEach(el => {
-            //     console.log(el.children);
-            // });
-            // test.push(info)
-            // await page.evaluate(() => {
-            //     let info = Array.from(document.querySelectorAll("#bloc_31037_content div.flex"))
-            //     let testFunction = (infos) => {
-            //         infos.forEach(el => {
-            //             console.log(el);
-            //         });
-            //     }
-            //     testFunction(info)
-            //     // .forEach(el => {
-            //         // if (el.children[0].innerText = "Adresse :") {
-            //             //     console.log("you found the adress");
-            //         // }
-            //         // console.log(el);
-            //         // club.location = el
-            //     // })
-            // })
+            club.contact = await page.evaluate(() => {
+                let objs = document.querySelectorAll("#bloc_31037_content div.flex")
+                for (let i = 0; i < objs.length; i++) {
+                    if (objs[i].children[0].innerText === 'Téléphone :'){
+                        return objs[i].children[1].innerText
+                    }
+                }
+            })
+            club.address = await page.evaluate(() => {
+                let objs = document.querySelectorAll("#bloc_31037_content div.flex")
+                for (let i = 0; i < objs.length; i++) {
+                    if (objs[i].children[0].innerText === "Adresse :" || objs[i].children[0].innerText === "Ville :"){
+                        return objs[i].children[1].innerText
+                    }
+                }
+            })
                 
-            // club.website = await page.evaluate(() => document.querySelectorAll("#bloc_31037_content div.flex div.flex_1 a")[1].href)
+            club.website = await page.evaluate(() => {
+                let objs = document.querySelectorAll("#bloc_31037_content div.flex")
+                for (let i = 0; i < objs.length; i++) {
+                    if (objs[i].children[0].innerText === "Site :"){
+                        return objs[i].children[1].children[0].href
+                        // Array.from(document.querySelectorAll("a.flex.lien_bloc")).map((urlsite) =>
+                        //     urlsite.href
+                        // )
+                        // return document.querySelectorAll("#bloc_31037_content div.flex .flex_1 .a")
+                    }
+                }
+            })
             clubInfo.push(club);
         } catch (error) {
             console.log(error);
