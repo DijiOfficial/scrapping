@@ -53,16 +53,3 @@ const getTrainers = async (url) => {
 
 getTrainers(mainUrl)
 
-
-
-//HELPER CODE
-/*
-let contactInfoArray = contactInfoText.split("\n")
-                console.log(contactInfoText)
-
-                if (contactInfoArray.length === 3) {
-                    trainer.contact = {
-                        phone: (contactInfoArray[0].split(" "))[1]
-                    }
-                }
-*/
