@@ -1,3 +1,6 @@
+// SCRAPPING MORE TRAINER DATA FROM THE WEBSITE OF ASSOCIACIONS
+// Need to update the code to go from mainUrl to next page
+
 const puppeteer = require('puppeteer');
 
 const mainUrl = "https://www.chien.com/adresse/10-0-0-0-0-educateur-dresseur-canin-1.php"

@@ -1,3 +1,6 @@
+//SCRAPPING TRAINER DATA FROM LIST WHERE MAP WAS PRESENT
+
+
 const puppeteer = require('puppeteer');
 
 const mainUrl = "https://www.apdt-bene.net/vind-een-trainer/"
